@@ -5,7 +5,10 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+     experimentalSessionAndOrigin:true
+
   },
+   chromeWebSecurity: false 
   // env: {
   //   url: "https://google.com/",
   //   user_name: "admin",
