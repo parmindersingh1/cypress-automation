@@ -27,7 +27,9 @@ cy.wait(5000)
          cy.get('#okta-signin-submit').click()
          cy.wait(4000)
          cy.get('.o-form-button-bar').click()
+         cy.origin('https://accounts.google.com', () => {
          cy.wait(5000)
+            })
 
          
     })
