@@ -5,10 +5,10 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-     experimentalSessionAndOrigin:true
-
+    //  experimentalSessionAndOrigin:true
+    baseUrl: "https://edge.k8s.g498.io/",
   },
-   chromeWebSecurity: false 
+  //  chromeWebSecurity: false 
   // env: {
   //   url: "https://google.com/",
   //   user_name: "admin",

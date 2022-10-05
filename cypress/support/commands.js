@@ -23,3 +23,9 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('login', () => {
+    Cypress.env("cookies").forEach(data => {
+        cy.setCookie(data.name, data.value, data.options)
+    })
+})
