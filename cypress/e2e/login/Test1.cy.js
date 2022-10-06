@@ -73,8 +73,7 @@ describe("Login page", () => {
         cy.setCookie(data.name,data.value,data.options)
 
     })
-      
-  
+        
        cy.wait(3000)
        cy.visit("https://edge.k8s.g498.io")
        cy.wait(1000)
@@ -88,11 +87,31 @@ describe("Login page", () => {
     cy.wait(3000)
    // cy.get('#toggle').check({force:true})
     cy.get('span').contains('Zsl lf demo').closest('li').find('#toggle').check({force:true})
+    //cy.get('#nav_ > .flex > .truncate').click()
+    cy.wait(2000)
+    cy.get('#nav_ > .flex').click({ force: true })
+    cy.wait(5000)
+    cy.get('[data-cy="stacked-expand-button"]').click()
+    cy.wait(3000)
+    cy.get('li > [data-cy="new-application-button"]').click()
+    cy.wait(5000)
+    cy.get("[data-cy='input-wrapper'] input").type('contract-classification',{force:true})
+    cy.wait(5000)
+    cy.get('[data-cy="application-template-card-[demo]-snorkel-contract-classification"]').click()
+    cy.get('.sc-c3d2f28a-0 > :nth-child(1) > [data-cy="input-wrapper"]').type('-pankajNn-06-010-2022')
+    cy.get(':nth-child(2) > [data-cy="input-wrapper"]').type('-pankajNn-06-10-2022')
+    cy.get('[data-cy="save-new-application"]').click()
+    // cy.wait(7000)
+    // cy.get('.sc-fe09b31d-0').click()
+
+       
+    
     // cy.get('#toggle').next('.track').then(($toggle)=>{
     //     //cy.log($toggle)
     //     $toggle.removeClass('bg-gray-600').addClass('')
     // })
     //cy.get('.track rounded-full w-12 h-6 bg-gray-600')
+    
     
 });
          
