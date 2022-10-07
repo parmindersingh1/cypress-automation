@@ -14,5 +14,6 @@ npm install
 npm run cy:open
 
 ```
-###Click e2e testing
-###Start E2E testing on chrome
+### Click e2e testing
+
+### Start E2E testing on chrome
