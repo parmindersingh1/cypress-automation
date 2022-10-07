@@ -60,27 +60,45 @@ describe("Classic Studio Demo", () => {
       .type("contract-classification", {
         force: true,
       });
-    // cy.wait(1500);
+     
     cy.get(
-      '[data-cy="application-template-card-[demo]-snorkel-contract-classification"]'
-    ).click({ force: true });
-    cy.get('.sc-c3d2f28a-0 > :nth-child(1) > [data-cy="input-wrapper"]').type(
-      "-pankajNn-06-10-2022-9"
+      '[data-cy="application-template-card-[demo]-snorkel-contract-classification"]', {timeout: 10000 }).click({ force: true })
+      cy.wait(1000)
+    cy.get('[data-cy="application-name-input"]', {timeout: 10000 }).type(
+      "-pankajQzz-" + new Date().valueOf()
     );
-    cy.get(':nth-child(2) > [data-cy="input-wrapper"]').type(
-      "-pankajNn-06-010-2022-9"
+    cy.wait(1000)
+    cy.get('[data-cy="application-description-input"]', {timeout: 10000 }).type(
+      "-pankajQzz-" + new Date().valueOf()
     );
-    // cy.wait(500);
+      // cy.wait(500);
     cy.get('[data-cy="save-new-application"]').click({ force: true });
+    cy.wait(60000)
+    cy.get('.text-xl', { timeout: 15000 }).should('be.visible');
+    cy.get('.sc-fe09b31d-0').click()
+    cy.get('[data-cy="operator-node"]').eq(2).click()
+    cy.wait(5000)
   });
 
-  // it("should visit created application", () => {
+  // it("Application dashboard",{ defaultCommandTimeout: 5000 }, () => {
+  //   cy.get('.sc-fe09b31d-0').click()
+
+  // })
+    
+
+  //  it("should visit created application", () => {
   //   cy.waitUntil(function () {
   //   //   return cy.get('[data-cy="button-loading-spinner"]').then($el => $el.length)
-  //     return Cypress.$('[data-cy="button-loading-spinner"]').length;
+  //     return Cypress.$('h1.text-xl').length;
   //   });
-  //   // cy.contains("Application Studio").should("be.visible"); Populating new application
-  // });
+  //    cy.contains("Application Studio").should("be.visible");
+
+  //    cy.get('.text-xl', { timeout: 15000 }).should('be.visible');
+
+  
+ //  });
+
+
 
   // it("should visit user settings page on click", () => {
 
