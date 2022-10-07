@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import "cypress-v10-preserve-cookie";
-import 'cypress-wait-until';
+import "cypress-wait-until";
 
 describe("Classic Studio Demo", () => {
   before(() => {
@@ -15,43 +15,52 @@ describe("Classic Studio Demo", () => {
     cy.preserveCookieOnce(...names);
   });
 
-  it("should opens the user settings page", () => {
+  it("should opens the user settings page", { defaultCommandTimeout: 5000 }, () => {
     cy.visit("/");
 
-    cy.wait(1500)
+    // cy.wait(1500);
     cy.get('[data-cy="user-settings-button"]').click();
-    cy.wait(1500)
+    // cy.wait(1500);
     cy.get(".MuiPaper-root.MuiPopover-paper")
       .find("[href='/user/settings']")
       .invoke("removeAttr", "target")
       .click();
-    cy.wait(1000);
-  //  cy.url().should("include", "/user/settings");
+    // cy.wait(1000);
+    // cy.location("pathname", { timeout: 5000 }).should("eq", "/user/settings");
+     cy.url().should("include", "/user/settings");
   });
 
-  it("enable Zsl id demo switch", () => {
+  it("enable Zsl id demo switch", { defaultCommandTimeout: 5000 }, () => {
     // cy.visit("/user/settings");
     cy.get("[data-cy='feature-flag-management-button']").click({ force: true });
-    cy.wait(4000)
+    // cy.wait(4000);
     cy.get("span")
       .contains("Zsl lf demo")
       .closest("li")
       .find("#toggle")
       .check({ force: true });
+    //   cy.wait(1000);
+
+      cy.get("span")
+      .contains("Zsl lf demo")
+      .closest("li")
+      .find(".track").should("have.class", "bg-green-500")
+
   });
 
-  it("create an application", () => {
+  it("create an application", { defaultCommandTimeout: 5000 }, () => {
     cy.get("#nav_ > a").click({ force: true });
-    cy.wait(2000);
+    // cy.wait(2000);
     cy.get('[data-cy="stacked-expand-button"]').click({ force: true });
-    cy.wait(4000);
+    // cy.wait(4000);
     cy.get('[data-cy="new-application-button"]').eq(1).click({ force: true });
- // cy.get("#nav_ a").click()
-    cy.wait(2500)
-    cy.get("[data-cy='input-wrapper'] input").eq(1).type("contract-classification", {
-      force: true,
-    });
-    cy.wait(1500)
+    // cy.get("#nav_ a").click()
+    // cy.wait(2500);
+    cy.get("[placeholder='Search for preset applications']", {timeout: 10000 })
+      .type("contract-classification", {
+        force: true,
+      });
+    // cy.wait(1500);
     cy.get(
       '[data-cy="application-template-card-[demo]-snorkel-contract-classification"]'
     ).click({ force: true });
@@ -61,7 +70,7 @@ describe("Classic Studio Demo", () => {
     cy.get(':nth-child(2) > [data-cy="input-wrapper"]').type(
       "-pankajNn-06-010-2022-9"
     );
-    cy.wait(500);
+    // cy.wait(500);
     cy.get('[data-cy="save-new-application"]').click({ force: true });
   });
 
