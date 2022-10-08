@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 import "cypress-v10-preserve-cookie";
 import "cypress-wait-until";
+import ClassicStudio from "../../support/pages/ClassicStudio";
+
+const classicStudio = new ClassicStudio();
 
 describe("Classic Studio Demo", () => {
   before(() => {
@@ -15,102 +18,61 @@ describe("Classic Studio Demo", () => {
     cy.preserveCookieOnce(...names);
   });
 
-  it("should opens the user settings page", { defaultCommandTimeout: 5000 }, () => {
+  it("should opens the user settings page", () => {
     cy.visit("/");
 
-    // cy.wait(1500);
-    cy.get('[data-cy="user-settings-button"]').click();
-    // cy.wait(1500);
-    cy.get(".MuiPaper-root.MuiPopover-paper")
-      .find("[href='/user/settings']")
-      .invoke("removeAttr", "target")
-      .click();
-    // cy.wait(1000);
-    // cy.location("pathname", { timeout: 5000 }).should("eq", "/user/settings");
-     cy.url().should("include", "/user/settings");
+    classicStudio.getUserSettingsButton().click();
+
+    classicStudio.getUserSettingsLink().click();
+
+    cy.url().should("include", "/user/settings");
   });
 
-  it("enable Zsl id demo switch", { defaultCommandTimeout: 5000 }, () => {
-    // cy.visit("/user/settings");
-    cy.get("[data-cy='feature-flag-management-button']").click({ force: true });
-    // cy.wait(4000);
-    cy.get("span")
-      .contains("Zsl lf demo")
-      .closest("li")
-      .find("#toggle")
-      .check({ force: true });
-    //   cy.wait(1000);
+  it("enable Zsl id demo switch", () => {
+    classicStudio.getFeatureFlagListItem().click({ force: true });
 
-      cy.get("span")
-      .contains("Zsl lf demo")
-      .closest("li")
-      .find(".track").should("have.class", "bg-green-500")
+    classicStudio.getZslToggleButton().check({ force: true });
 
+    classicStudio.getZslToggleClass().should("have.class", "bg-green-500");
   });
 
-  it("create an application", { defaultCommandTimeout: 5000 }, () => {
-    cy.get("#nav_ > a").click({ force: true });
-    // cy.wait(2000);
-    cy.get('[data-cy="stacked-expand-button"]').click({ force: true });
-    // cy.wait(4000);
-    cy.get('[data-cy="new-application-button"]').eq(1).click({ force: true });
-    // cy.get("#nav_ a").click()
-    // cy.wait(2500);
-    cy.get("[placeholder='Search for preset applications']", {timeout: 10000 })
-      .type("contract-classification", {
-        force: true,
-      });
-     
-    cy.get(
-      '[data-cy="application-template-card-[demo]-snorkel-contract-classification"]', {timeout: 10000 }).click({ force: true })
-      cy.wait(1000)
-    cy.get('[data-cy="application-name-input"]', {timeout: 10000 }).type(
-      "-pankajQzz-" + new Date().valueOf()
-    );
-    cy.wait(1000)
-    cy.get('[data-cy="application-description-input"]', {timeout: 10000 }).type(
-      "-pankajQzz-" + new Date().valueOf()
-    );
-      // cy.wait(500);
-    cy.get('[data-cy="save-new-application"]').click({ force: true });
-    cy.wait(60000)
-    cy.get('.text-xl', { timeout: 15000 }).should('be.visible');
-    cy.get('.sc-fe09b31d-0').click()
-    cy.get('[data-cy="operator-node"]').eq(2).click()
-    cy.wait(5000)
+  it("create an application", () => {
+    classicStudio.getApplicationButton().click({ force: true });
+
+    classicStudio.getAppicationExpandButton().click({ force: true });
+
+    classicStudio.getNewAppicationButton().eq(1).click({ force: true });
+
+    classicStudio.getSearchApplicationInput().type("contract-classification", {
+      force: true,
+    });
+
+    classicStudio.getSearchedApplicationBox().click({ force: true });
+
+    cy.wait(1000);
+
+    classicStudio
+      .getApplicationNameField()
+      .type("-pankajQzzi-" + new Date().valueOf());
+
+    cy.wait(1000);
+
+    classicStudio
+      .getDataSetNameField()
+      .type("-pankajQzzi-" + new Date().valueOf());
+
+    cy.wait(1000);
+    classicStudio.getSaveButton().click({ force: true });
+    cy.wait(60000);
+
+    classicStudio
+      .getApplicationHeaderText({ timeout: 15000 })
+      .should("be.visible");
+
+    classicStudio.getExpandNode().click();
+
+    classicStudio.getModelDeploymentNode().should("be.visible");
+    classicStudio.getModelDeploymentNode().eq(2).click();
+    cy.wait(5000);
   });
-
-  // it("Application dashboard",{ defaultCommandTimeout: 5000 }, () => {
-  //   cy.get('.sc-fe09b31d-0').click()
-
-  // })
-    
-
-  //  it("should visit created application", () => {
-  //   cy.waitUntil(function () {
-  //   //   return cy.get('[data-cy="button-loading-spinner"]').then($el => $el.length)
-  //     return Cypress.$('h1.text-xl').length;
-  //   });
-  //    cy.contains("Application Studio").should("be.visible");
-
-  //    cy.get('.text-xl', { timeout: 15000 }).should('be.visible');
-
-  
- //  });
-
-
-
-  // it("should visit user settings page on click", () => {
-
-  //     cy.get('[data-cy="user-settings-button"] > .gap-3').click()
-  //     // change user setting
-  //     cy.get('[style="position: fixed; z-index: 1300; inset: 0px;"] > .MuiPaper-root > .rounded > :nth-child(1) > .w-full').click()
-
-  //     cy.visit("/user/settings").then(window => {
-  //         cy.stub(window, 'open').as('open');
-  //         cy.get('.MuiSvgIcon-root').click({ multiple: true })
-  //         cy.get('span').contains('Zsl lf demo').closest('li').find('#toggle').check({ force: true })
-  //     });
-
-  // })
 });
