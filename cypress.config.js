@@ -8,6 +8,9 @@ module.exports = defineConfig({
     //  experimentalSessionAndOrigin:true
     baseUrl: "https://edge.k8s.g498.io/",
   },
+  defaultCommandTimeout: 6000,
+  requestTimeout: 6000,
+  
   //  chromeWebSecurity: false 
   // env: {
   //   url: "https://google.com/",
