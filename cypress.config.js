@@ -11,10 +11,5 @@ module.exports = defineConfig({
   defaultCommandTimeout: 6000,
   requestTimeout: 6000,
   
-  //  chromeWebSecurity: false 
-  // env: {
-  //   url: "https://google.com/",
-  //   user_name: "admin",
-  //   user_password: "s3creT-p@ssw0rd",
-  // },
+  
 });
